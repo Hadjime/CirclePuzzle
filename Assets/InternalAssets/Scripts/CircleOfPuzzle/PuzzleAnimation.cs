@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace InternalAssets.Scripts.CircleOfPuzzle
 {
-	public class PazzleAnimation : MonoBehaviour
+	public class PuzzleAnimation : MonoBehaviour
 	{
 		[SerializeField] Puzzle puzzle;
 		[SerializeField] private float animationSpeed;
@@ -25,7 +25,7 @@ namespace InternalAssets.Scripts.CircleOfPuzzle
 			isPuzzleShown = puzzle.gameObject.activeSelf;
 		}
 
-		public void Play()
+		public void ShowOrHide()
 		{
 			StartCoroutine(PlayAnimation(!isPuzzleShown));
 		}
