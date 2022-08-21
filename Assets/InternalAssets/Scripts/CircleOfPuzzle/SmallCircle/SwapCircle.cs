@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using InternalAssets.Scripts.CircleOfPuzzle.Nodes;
 using InternalAssets.Scripts.Utils;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -8,12 +10,12 @@ using UnityEngine.EventSystems;
 
 namespace InternalAssets.Scripts.CircleOfPuzzle.SmallCircle
 {
-	public class SwapCircle : MonoBehaviour, IPointerDownHandler
+	public class SwapCircle : MonoBehaviour, IBeginDragHandler, IDragHandler, IPointerClickHandler
 	{
 		private const int TURN_TO_Z = 180;
 		private const float BLOCKED_DURATION = 0.7f;
 
-		[SerializeField] private List<Transform> points;
+		[SerializeField] private List<Slot> slots;
 		[SerializeField] private float turnSpeed = 1;
 		[SerializeField] private GameObject blockedVFX;
 		private bool isTurnPlaying;
@@ -21,9 +23,10 @@ namespace InternalAssets.Scripts.CircleOfPuzzle.SmallCircle
 
 
 		public event Action<SwapCircle> OnSwapCircleTurnStart;
+		public event Action<SwapCircle> OnSwapCircleTurnStop;
 
 
-		public void OnPointerDown(PointerEventData eventData)
+		public void OnPointerClick(PointerEventData eventData)
 		{
 			OnSwapCircleTurnStart?.Invoke(this);
 		}
@@ -44,15 +47,9 @@ namespace InternalAssets.Scripts.CircleOfPuzzle.SmallCircle
 			StartCoroutine(BlockedVFX());
 		}
 
-		private IEnumerator BlockedVFX()
-		{
-			if (blockedVFX == null)
-				yield break;
-			
-			blockedVFX.SetActive(true);
-			yield return Coroutines.GetWait(BLOCKED_DURATION);
-			blockedVFX.SetActive(false);
-		}
+		public void OnBeginDrag(PointerEventData eventData) {}
+
+		public void OnDrag(PointerEventData eventData) {}
 
 		private IEnumerator Turn(Action onTurnComplete)
 		{
@@ -67,9 +64,48 @@ namespace InternalAssets.Scripts.CircleOfPuzzle.SmallCircle
 				transform.rotation = Quaternion.Lerp(Quaternion.Euler(currentAngle), Quaternion.Euler(targetAngle), progress);
 				yield return null;
 			}
-			
+
+			transform.rotation = Quaternion.Euler(targetAngle);
+			SwapSlots();
 			isTurnPlaying = false;
 			onTurnComplete?.Invoke();
+			OnSwapCircleTurnStop?.Invoke(this);
+		}
+
+		private void SwapSlots()
+		{
+			//TODO: надо подумаь как сделать универсальнее, на случай если в круге будет больше двух слотов
+			Slot slot0 = slots[0];
+			Slot slot1 = slots[1];
+			List<Slot> neighbors_slot0 = slot0.Neighbors.ToList();
+			List<Slot> neighbors_slot1 = slot1.Neighbors.ToList();
+			
+			SwapSlotInCircle(neighbors_slot0, slot1, slot0);
+			SwapSlotInCircle(neighbors_slot1, slot0, slot1);
+
+			slot0.SetNeighbors(neighbors_slot1);
+			slot1.SetNeighbors(neighbors_slot0);
+		}
+
+		private void SwapSlotInCircle(List<Slot> neighbors, Slot oldSlot, Slot newSlot)
+		{
+			for (var index = 0; index < neighbors.Count; index++)
+			{
+				if (neighbors[index] == oldSlot)
+					neighbors[index] = newSlot;
+				else
+					neighbors[index].UpdateNeighbor(newSlot, oldSlot);
+			}
+		}
+
+		private IEnumerator BlockedVFX()
+		{
+			if (blockedVFX == null)
+				yield break;
+			
+			blockedVFX.SetActive(true);
+			yield return Coroutines.GetWait(BLOCKED_DURATION);
+			blockedVFX.SetActive(false);
 		}
 	}
 }
