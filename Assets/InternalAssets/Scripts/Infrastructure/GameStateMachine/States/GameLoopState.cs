@@ -6,18 +6,11 @@ namespace InternalAssets.Scripts.Infrastructure.GameStateMachine.States
     public class GameLoopState : IPayloadState<GameObject>
     {
         private readonly GameStateMachine _gameStateMachine;
-		// private HeroDeath _heroDeath;
 
 		public GameLoopState(GameStateMachine gameStateMachine)
         {
             _gameStateMachine = gameStateMachine;
         }
-
-		public void Enter(/*HeroDeath heroDeath*/)
-		{
-			// _heroDeath = heroDeath;
-			// _heroDeath.HeroDead += OnHeroDead;
-		}
 
 		public void Enter(GameObject payload)
 		{
@@ -26,10 +19,10 @@ namespace InternalAssets.Scripts.Infrastructure.GameStateMachine.States
 
 		public void Exit()
         {
-			// _heroDeath.HeroDead -= OnHeroDead;
+			// TODO: Здесь отписаться от события конца игры 
         }
 
-		private void OnHeroDead() =>
+		private void OnPuzzleCompleted() =>
 			_gameStateMachine.Enter<BootstrapState>();
 	}
 }

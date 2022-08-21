@@ -53,7 +53,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2410140860492744754, guid: 56e9fa37e0cc20a478c6ca31d8377ab0, type: 3}
       propertyPath: m_Name
-      value: AbstractBall
+      value: GreentBall
+      objectReference: {fileID: 0}
+    - target: {fileID: 2410140860492744755, guid: 56e9fa37e0cc20a478c6ca31d8377ab0, type: 3}
+      propertyPath: ballType
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56e9fa37e0cc20a478c6ca31d8377ab0, type: 3}

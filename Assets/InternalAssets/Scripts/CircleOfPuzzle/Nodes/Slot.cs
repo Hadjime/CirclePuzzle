@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,10 +15,6 @@ namespace InternalAssets.Scripts.CircleOfPuzzle.Nodes
 		public bool IsEmpty => isEmpty;
 		public Ball.Ball Currentball => currentball;
 
-		private void Start()
-		{
-			// SetBall(GetComponentInChildren<Ball.Ball>());
-		}
 
 		public void SetNeighbors(List<Slot> newNeighbors)
 		{

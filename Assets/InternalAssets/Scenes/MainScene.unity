@@ -350,6 +350,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4720257068052736453, guid: b6e08c765f30c5049b77689057e6ffca, type: 3}
+      propertyPath: slotTemplate.templates.Array.data[0].templates.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4720257068052736455, guid: b6e08c765f30c5049b77689057e6ffca, type: 3}
       propertyPath: m_Name
       value: CirclePuzzleController

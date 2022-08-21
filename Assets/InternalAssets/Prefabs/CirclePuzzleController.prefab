@@ -344,6 +344,44 @@ MonoBehaviour:
   backgroundHandler: {fileID: 4720257066577941341}
   puzzle: {fileID: 4720257067759334125}
   slots: []
+  slotTemplate:
+    templates:
+    - name: Template_1
+      slots:
+      - {fileID: 5609305732730767768}
+      - {fileID: 5221605587095920687}
+      - {fileID: 199282415566064823}
+      - {fileID: 8966946640100982946}
+    - name: Template_2
+      slots:
+      - {fileID: 7407590422921699904}
+      - {fileID: 8279870903579991462}
+      - {fileID: 4061440264940187966}
+      - {fileID: 644852029192714045}
+    - name: Template_3
+      slots:
+      - {fileID: 1360372874559795760}
+      - {fileID: 2107226395680286689}
+      - {fileID: 6308276366766345081}
+      - {fileID: 8479528787593485200}
+    - name: Template_4
+      slots:
+      - {fileID: 8825306205678632775}
+      - {fileID: 4527610301505820891}
+      - {fileID: 8385822646656791619}
+      - {fileID: 7708384714616074277}
+    - name: Template_5
+      slots:
+      - {fileID: 6849947612505138682}
+      - {fileID: 9202653117916852284}
+      - {fileID: 3819972294496951460}
+      - {fileID: 4023570055977414402}
+    - name: Template_6
+      slots:
+      - {fileID: 2526056820134012988}
+      - {fileID: 744471142716900032}
+      - {fileID: 4675233802684706392}
+      - {fileID: 5054684435183577241}
   ballsGenerator: {fileID: 8591515303577201152}
 --- !u!114 &8591515303577201152
 MonoBehaviour:
